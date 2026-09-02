@@ -1,0 +1,33 @@
+name: run-tests
+run-name: ${{ github.actor }} is running tests 🧪
+
+on:
+  workflow_call:
+    inputs:
+      node_ver:
+        required: true
+        type: string
+      pnpm_ver:
+        required: true
+        type: string
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ inputs.pnpm_ver }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_ver }}
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      # TODO: replace with real tests once they exist
+      - name: Run tests
+        run: pnpm test

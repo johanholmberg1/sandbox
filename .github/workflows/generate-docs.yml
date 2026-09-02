@@ -1,0 +1,31 @@
+name: generate-docs
+run-name: ${{ github.actor }} is generating documentation 🚀
+
+on:
+  workflow_call:
+    inputs:
+      node_ver:
+        required: true
+        type: string
+      pnpm_ver:
+        required: true
+        type: string
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ inputs.pnpm_ver }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_ver }}
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build documentation
+        run: pnpm build
