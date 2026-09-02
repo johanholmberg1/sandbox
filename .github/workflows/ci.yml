@@ -9,18 +9,14 @@ on:
 jobs:
   versions:
     runs-on: ubuntu-latest
-    continue-on-error: true
     outputs:
       node_ver: ${{ steps.vars.outputs.node_ver }}
       pnpm_ver: ${{ steps.vars.outputs.pnpm_ver }}
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v6
-      - uses: pnpm/setup@v1
-        with:
-            version: 11.24.0
-            runtime: node@24
-            cache: truePUT"
+      - uses: actions/checkout@v7
+      - uses: pnpm/setup@v2
+      - run: node --version
+      - run: pnpm --version
 
   run-tests:
     needs: versions
@@ -29,9 +25,3 @@ jobs:
       node_ver: ${{ needs.versions.outputs.node_ver }}
       pnpm_ver: ${{ needs.versions.outputs.pnpm_ver }}
 
-  generate-docs:
-    needs: run-tests
-    uses: ./.github/workflows/generate-docs.yml
-    with:
-      node_ver: ${{ needs.versions.outputs.node_ver }}
-      pnpm_ver: ${{ needs.versions.outputs.pnpm_ver }}

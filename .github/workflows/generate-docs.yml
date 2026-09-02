@@ -16,13 +16,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v6
-      - uses: pnpm/setup@v1
-        with:
-          version: ${{ inputs.pnpm_ver }}
-          runtime: node@${{ inputs.node_ver }}
-          cache: true
-      - name: Setup Node
-        uses: actions/setup-node@v7
         with:
           node-version: ${{ inputs.node_ver }}
           cache: pnpm
