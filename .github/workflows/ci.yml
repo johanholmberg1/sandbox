@@ -9,6 +9,7 @@ on:
 jobs:
   versions:
     runs-on: ubuntu-latest
+    continue-on-error: true
     outputs:
       node_ver: ${{ steps.vars.outputs.node_ver }}
       pnpm_ver: ${{ steps.vars.outputs.pnpm_ver }}
