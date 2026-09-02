@@ -10,13 +10,15 @@ jobs:
   versions:
     runs-on: ubuntu-latest
     outputs:
-      node_ver: ${{ steps.vars.outputs.node_ver }}
-      pnpm_ver: ${{ steps.vars.outputs.pnpm_ver }}
+      node_ver: ${{ steps.node_ver.outputs.node_ver }}
+      pnpm_ver: ${{ steps.pnpm_ver.outputs.pnpm_ver }}
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/setup@v2
-      - run: node --version
-      - run: pnpm --version
+      - id: node_ver
+        run: echo "node_ver=$(node --version)" >> "$GITHUB_OUTPUT"
+      - id: pnpm_ver
+        run: echo "pnpm_ver=$(pnpm --version)" >> "$GITHUB_OUTPUT"
 
   run-tests:
     needs: versions
