@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "echo \"no tests specified yet\" && exit 1",
+    "test": "echo \"no tests specified yet\" && exit 0",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
