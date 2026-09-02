@@ -16,11 +16,11 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v6
-      - name: Read node/pnpm versions from package.json
-        id: vars
-        run: |
-          echo "node_ver=$(jq -r '.engines.node' package.json)" >> "$GITHUB_OUTPUT"
-          echo "pnpm_ver=$(jq -r '.devEngines.packageManager.version' package.json)" >> "$GITHUB_OUTPUT"
+      - uses: pnpm/setup@v1
+        with:
+            version: 11.24.0
+            runtime: node@24
+            cache: truePUT"
 
   run-tests:
     needs: versions
