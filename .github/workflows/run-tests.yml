@@ -3,13 +3,6 @@ run-name: ${{ github.actor }} is running tests 🧪
 
 on:
   workflow_call:
-    inputs:
-      node_ver:
-        required: true
-        type: string
-      pnpm_ver:
-        required: true
-        type: string
 
 jobs:
   run-tests:
@@ -17,23 +10,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-      - name: Setup PNPM
+      - name: Install pnpm + Node.js
         uses: pnpm/setup@v2
-        with:
-          version: ${{ inputs.pnpm_ver }}
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ inputs.node_ver }}
-          cache: pnpm
-      - name: Display Node and PNPM versions
-        run: |
-          node --version
-          pnpm --version
-          echo "node_ver ${{ inputs.node_ver }}"
-          echo "pnpm_ver ${{ inputs.pnpm_ver }}"
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
       # TODO: replace with real tests once they exist
       - name: Run tests
         run: pnpm test
