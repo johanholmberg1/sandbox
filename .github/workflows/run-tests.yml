@@ -17,10 +17,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-      - name: Display Node and PNPM versions
-        run: |
-          node --version
-          pnpm --version
       - name: Setup PNPM
         uses: pnpm/setup@v2
         with:
@@ -30,6 +26,11 @@ jobs:
         with:
           node-version: ${{ inputs.node_ver }}
           cache: pnpm
+      - name: Display Node and PNPM versions
+        run: |
+          node --version
+          npm --version
+          pnpm --version
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       # TODO: replace with real tests once they exist
