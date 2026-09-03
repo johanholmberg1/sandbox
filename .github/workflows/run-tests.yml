@@ -29,8 +29,9 @@ jobs:
       - name: Display Node and PNPM versions
         run: |
           node --version
-          npm --version
           pnpm --version
+          echo "node_ver ${{ inputs.node_ver }}"
+          echo "pnpm_ver ${{ inputs.pnpm_ver }}"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       # TODO: replace with real tests once they exist
