@@ -18,9 +18,9 @@ jobs:
       - name: Setup PNPM
         uses: pnpm/setup@v2
       - id: node_ver
-        run: node_ver=$(node --version) >> "$GITHUB_OUTPUT"
+        run: echo "node_ver=$(node --version)" >> $GITHUB_OUTPUT
       - id: pnpm_ver
-        run: pnpm_ver=$(pnpm --version) >> "$GITHUB_OUTPUT"
+        run: echo "pnpm_ver=$(pnpm --version)" >> $GITHUB_OUTPUT
 
   run-tests:
     needs: versions
