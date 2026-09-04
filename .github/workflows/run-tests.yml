@@ -1,17 +1,22 @@
-name: run-tests
-run-name: ${{ github.actor }} is running tests 🧪
+name: Test deployment
 
 on:
   workflow_call:
 
 jobs:
-  run-tests:
+  test-deploy:
+    name: Test deployment
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Install pnpm + Node.js
         uses: pnpm/setup@v2
-      # TODO: replace with real tests once they exist
-      - name: Run tests
-        run: pnpm test
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Test build website
+        run: pnpm build
